@@ -50,7 +50,7 @@ const apiCall = async  () =>{
                 let player = {
                     name: elem.name,
                     position: elem.position,
-                    club: elem.club.abbrName,
+                    club: elem.club.name,
                     nation: elem.nation.name
 
                 }

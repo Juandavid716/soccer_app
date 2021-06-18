@@ -4,7 +4,7 @@ const app = express();
 require('dotenv').config();
 
 app.use(express.json());
-mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
 
 const db = mongoose.connection;
 
@@ -22,16 +22,35 @@ const Player =  mongoose.model("Player",
 	
 }));
 
+// Get players by matching a string
+app.get("/api/v1/players/:search/:order*?",async (req,res)=> {
 
-app.get("/api/v1/players/:search",async (req,res)=> {
-    const players = await Player.find({name:  new RegExp([req.params['search']], 'i') })
+    const players = [req.params['order']] == "des" ? await Player.find({name:  new RegExp([req.params['search']], 'i') }).sort({name: -1}) : await Player.find({name:  new RegExp([req.params['search']], 'i') }).sort({name: 1})
     res.send(players)
 })
 
+
+// Get all players
 app.get("/api/v1/players/",async (req,res)=> {
     const players = await Player.find()
     res.send(players)
 })
+
+// Get players from a team
+app.post("/api/v1/team", async (req, res) => {
+    let nameTeam = req.body.name;
+    
+    const oneTeam = await Player.findOne({club:  new RegExp(nameTeam, 'i') });
+    
+    const players = await Player.find({club:  new RegExp(oneTeam.club)})
+    const team = {
+        items: players.length,
+        players: players
+    }
+    
+    res.send(team)
+  });
+  
 
 app.listen(5000, (req, res) => {
     console.log("SERVER RUNNING");
