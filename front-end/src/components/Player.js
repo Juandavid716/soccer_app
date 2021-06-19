@@ -19,7 +19,7 @@ function Player() {
     <div className="row">
       <div className="playerContainer">
         {!data ? (
-          <div> Is Loading...</div>
+          <div className="m-4"> Loading ...</div>
         ) : (
           <ul className="">
             <PlayerTemplate data={data} />

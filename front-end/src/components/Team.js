@@ -23,7 +23,6 @@ function Team() {
       };
 
       fetchData();
-      console.log(search);
     }
   };
   return (

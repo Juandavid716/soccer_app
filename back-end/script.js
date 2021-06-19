@@ -26,13 +26,11 @@ function getUniqueListBy(arr, key) {
   return [...new Map(arr.map((item) => [item[key], item])).values()];
 }
 
-// console.log(JSON.stringify(arr2))
-// Debo cambiar lo de CLUB!!!
 const apiCall = async () => {
   var totalPlayers = [];
   let url = "https://www.easports.com/fifa/ultimate-team/api/fut/item?page=";
   const existPlayers = (await Player.find()).length;
-  console.log(existPlayers);
+
   if (existPlayers == 0) {
     let numPage = 1;
     let sw = true;
@@ -56,8 +54,8 @@ const apiCall = async () => {
         totalPlayers.push(player);
         return player;
       });
-      console.log(numPage);
-      if (2 == numPage) {
+      console.log("numpage ", numPage);
+      if (totalPages == numPage) {
         sw = false;
       }
       numPage++;
