@@ -30,7 +30,6 @@ const Player = mongoose.model(
 );
 
 //Get players by matching a string, example: localhost:5000/api/v1/players?search=cristi&order=asc&
-
 app.get("/api/v1/players", async (req, res) => {
   console.log(req.query.search);
   const players =
@@ -55,14 +54,17 @@ app.post("/api/v1/team", async (req, res) => {
   let nameTeam = req.body.name;
 
   const oneTeam = await Player.findOne({ club: new RegExp(nameTeam, "i") });
-
-  const players = await Player.find({ club: new RegExp(oneTeam.club) });
-  const team = {
-    items: players.length,
-    players: players,
-  };
-
-  res.send(team);
+  try {
+    const players = await Player.find({ club: new RegExp(oneTeam.club) });
+    const team = {
+      items: players.length,
+      players: players,
+    };
+    res.send(team);
+  } catch (error) {
+    console.log(error);
+    res.send([]);
+  }
 });
 
 app.listen(5000, (req, res) => {

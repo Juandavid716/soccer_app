@@ -1,14 +1,17 @@
 import Header from "./components/Header";
 import Player from "./components/Player";
+import Team from "./components/Team";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className=" main-container">
+    <Router>
       <Header />
-      <div className="row">
-        <Player />
-      </div>
-    </div>
+      <Switch>
+        <Route exact path="/" component={Player} />
+        <Route exact path="/team" component={Team} />
+      </Switch>
+    </Router>
   );
 }
 
