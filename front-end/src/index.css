@@ -62,7 +62,7 @@ div > a {
   justify-content: center;
 }
 .player {
-  margin: 10px 4px 4px 8px;
+  margin: 14px 4px 4px 8px;
 }
 
 /* MODAL */
@@ -70,4 +70,22 @@ div > a {
 .modalOption {
   display: flex;
   justify-content: center;
+}
+
+/* SEARCH */
+
+.searchBar {
+  display: flex;
+}
+/* MEDIA QUERIES */
+
+@media only screen and (max-width: 500px) {
+  .options,
+  #slogan {
+    font-size: 1.2rem;
+  }
+
+  .searchBar {
+    display: block;
+  }
 }
